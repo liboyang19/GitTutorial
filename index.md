@@ -3,9 +3,11 @@
 ## 想象如下场景
 
 有一份很重要的文件，每次更改都要小心翼翼地创建一个副本。
+
 ![](https://i.imgur.com/AQOzWlO.jpg)
 
 小组合作完成一个大项目，管理混乱。
+
 ![](https://i.imgur.com/CrfWpiy.jpg)
 
 担心硬盘损坏，创建多个副本备份，上传到百度云，或者拷贝到别的移动硬盘等等。
@@ -27,8 +29,6 @@
 ### GitHub
 
 Git用来管理本地文件，而GitHub用来管理远程文件，两者结合在一起，就可以实现多人协作开发以及分布式版本管理。
-
-后续会详细介绍GitHub的workflow。
 
 # Git入门
 
@@ -72,42 +72,42 @@ repo中的文件可以有三种主要的状态：`modified`, `staged`, `committe
 ## 基础的Git命令
 
 初始化本地仓库，将某个文件夹变为可以被Git的仓库。
-```
+``` bash
 $ git init               // Initialized local Git repository
 ```
 
 将文件添加到缓存区
-```
+``` bash
 $ git add <file>         // Add file(s) to index
 ```
 
 提交缓存区的文件
-```
+``` bash
 $ git commit             // Commit changes in index
 ```
 
 检查当前的工作树状态
-```
+``` bash
 $ git status             // Check status of working tree
 ```
 
 查询历史提交信息
-```
+``` bash
 $ git log                // Check commit log
 ```
 
 将本地仓库推送到远程仓库
-```
+``` bash
 $ git push               // Push to remote repository
 ```
 
 获得远程仓库最新的版本
-```
+``` bash
 $ git pull               // Pull latest from remote repository
 ```
 
 将一个仓库复制到新的目录下
-```
+``` bash
 $ git clone              // Clone repository into a new folder
 ```
 
@@ -131,3 +131,83 @@ $ git clone              // Clone repository into a new folder
 
 * 针对不同类型的冲突，有不同的解决方法
 * 增强代码的逻辑性，实现代码解耦，可以有效减少类似问题的出现。
+
+## 远程仓库
+
+### 1. 创建repo
+
+### 2. 关联本地仓库
+新建一个本地仓库
+``` bash
+echo "# ll" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/liboyang19/ll.git
+git push -u origin master
+```
+
+或者关联已存在的仓库
+``` bash
+git remote add origin https://github.com/liboyang19/ll.git
+git push -u origin master
+```
+
+### 3. 更新
+
+## GitHub workflow
+
+在项目的开始到结束，我们会有两种仓库。一种是源仓库（origin），一种是开发者仓库。
+
+### 源仓库
+
+在项目的开始，项目的发起者构建起一个项目的最原始的仓库，我们把它称为`origin`。有两个作用：
+1. 汇总参与该项目的各个开发者的代码
+2. 存放趋于稳定和可发布的代码
+
+源仓库应该是受保护的，开发者不应该直接对其进行开发工作。只有项目管理者（通常是项目发起人）能对其进行较高权限的操作。
+
+### 开发者仓库
+
+每个开发者需要把源仓库的“复制”一份，作为自己日常开发的仓库。这个复制，也就是`fork`。
+
+### 分支
+
+永久性分支
+* master branch: 主分支
+* dev branch: 开发分支
+
+![](https://i.imgur.com/sHxgjmg.jpg)
+
+临时性分支
+* feature branch: 功能分支
+* release branch: 预发布分支
+* hotfix branch: bug 修复分支
+
+![](https://i.imgur.com/vCQ3mYG.jpg)
+
+### 工作流
+
+为了方便演示，这里使用两个GitHub账号，管理员为**Manager660**，开发者为**liboyang19**。
+
+#### Step 1: 创建源仓库
+
+这一步通常由项目发起人操作，建立源仓库，并且初始化两个永久分支`master`和`dev`。
+
+#### Step 2: 开发者fork源仓库
+
+源仓库建立以后，每个开发就可以去复制一份源仓库到自己的github账号中，然后作为自己开发所用的仓库。
+
+#### Step 3: 将自己的开发者仓库下载到本地
+
+``` bash
+$ git clone
+```
+
+#### Step 4: 构建本地功能分支进行开发
+
+#### Step 5: 向管理员提交 Pull Request
+
+#### Step 6: 管理员测试、合并
+
+实践中摸索，这是一个非常强大的工具，值得学习。
